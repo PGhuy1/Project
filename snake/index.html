@@ -90,7 +90,7 @@
         //rickroll function
         function rickRoll(){
             document.getElementById("video").src = 'https://www.youtube.com/embed/fm4fLvDPv0Y?autoplay=1&playlist=fm4fLvDPv0Y&loop=1&iv_load_policy=3&controls=0&disablekb=1';
-            document.getElementById("video").style.display = "block";
+            document.getElementById("video").style.display = "inline";
             document.getElementById("button").style.display="none";
         }
         window.onload = function(){
@@ -200,12 +200,14 @@
         <h1>Snake Game</h1>
         <h2>Score: 0</h2>
         <h3>Press any arrow button to start.</h3>
-        <iframe id="video" src="https://www.youtube.com/embed/fm4fLvDPv0Y" frameborder="0" allow="autoplay"></iframe>
+        <video id="video">
+            <source src="./rickroll.mp4" type="video/mp4">
+        </video>
         <div class="button">
             <button id="button"onclick="rickRoll()">Try Again?</button>
         </div>
         <canvas id="board"></canvas>
     </div>
-    <span>Phone is not allowed</span>
+    <span>Phone is not allowed!</span>
 </body>
 </html>
