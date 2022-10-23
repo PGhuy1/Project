@@ -18,36 +18,12 @@
             font-size: 35px;
         }
         #video{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height:100%;
-            border: 0;
-            display:none;
-        }
-        .buttons{
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            top: 5vh;
-            left: 0;
+            position: fixed;
             right: 0;
-            text-align: center;
-        }
-        #button{
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 2em;
-            background-color: #ffffff;
-            font-size:15px;
-            padding: 10px 20px;
-            margin:20px;
-            border-radius:4px;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
             display: none;
-        }
-        #button:hover{
-            box-shadow: 1px 1px 8px 1px #dcdcdc;
-            cursor: pointer;
         }
         span{
             display: none;
@@ -87,13 +63,9 @@
         //game
         let gameOver = false;
         let score = 0;
-        //rickroll function
-        function rickRoll(){
-            document.getElementById("video").src = 'https://www.youtube.com/embed/fm4fLvDPv0Y?autoplay=1&playlist=fm4fLvDPv0Y&loop=1&iv_load_policy=3&controls=0&disablekb=1';
-            document.getElementById("video").style.display = "inline";
-            document.getElementById("button").style.display="none";
-        }
         window.onload = function(){
+            video = document.getElementById("video");
+            video.pause();
             board = document.getElementById("board");
             board.width = blockSize*cols;
             board.height = blockSize*rows;
@@ -104,6 +76,8 @@
         }
         function update(){
             if(gameOver){
+                alert("Game Over")
+                video.play()
                 return 0;
             }
             //draw board
@@ -150,7 +124,7 @@
             //game over conditions
             for(let i = 0; i < snakeBody.length; i++){
                 if(snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1] && !(snakeX > cols*blockSize||snakeY > rows*blockSize||snakeX <0||snakeY<0)){
-                    document.getElementById("button").style.display="inline";
+                    video.style.display = "block";
                     gameOver = true
                 }
             }
@@ -200,12 +174,10 @@
         <h1>Snake Game</h1>
         <h2>Score: 0</h2>
         <h3>Press any arrow button to start.</h3>
-        <video id="video">
+        <video id="video" loop>
             <source src="./rickroll.mp4" type="video/mp4">
+            <source src="./rickroll.ogg" type="video/ogg">
         </video>
-        <div class="button">
-            <button id="button"onclick="rickRoll()">Try Again?</button>
-        </div>
         <canvas id="board"></canvas>
     </div>
     <span>Phone is not allowed!</span>
