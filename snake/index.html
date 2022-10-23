@@ -26,13 +26,28 @@
             border: 0;
             display:none;
         }
+        .buttons{
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            top: 5vh;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
         #button{
-            position:absolute;
-            right: 30%;
-            width: 5%;
-            height: 5%;
-            font-size: 1em;
-            display:none;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2em;
+            background-color: #ffffff;
+            font-size:15px;
+            padding: 10px 20px;
+            margin:20px;
+            border-radius:4px;
+            display: none;
+        }
+        #button:hover{
+            box-shadow: 1px 1px 8px 1px #dcdcdc;
+            cursor: pointer;
         }
         @media (max-width:500px){
             body{
@@ -127,7 +142,7 @@
             //game over conditions
             for(let i = 0; i < snakeBody.length; i++){
                 if(snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1] && !(snakeX > cols*blockSize||snakeY > rows*blockSize||snakeX <0||snakeY<0)){
-                    document.getElementById("button").style.display="block";
+                    document.getElementById("button").style.display="inline";
                     gameOver = true
                 }
             }
@@ -177,7 +192,9 @@
     <h2>Score: 0</h2>
     <h3>Press any arrow button to start.</h3>
     <iframe id="video" src="https://www.youtube.com/embed/fm4fLvDPv0Y" frameborder="0" allow="autoplay"></iframe>
-    <button id="button"onclick="rickRoll()">Try Again?</button>
+    <div class="button">
+        <button id="button"onclick="rickRoll()">Try Again?</button>
+    </div>
     <canvas id="board"></canvas>
 </body>
 </html>
