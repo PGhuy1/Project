@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style>
+        body{
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin-top: 40px;
+        
+        }
+        h1{
+            font-size: 40px;
+        }
+        h2{
+            font-size: 35px;
+        }
+        #video{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height:100%;
+            border: 0;
+            display:none;
+        }
+        #button{
+            position:absolute;
+            right: 30%;
+            width: 5%;
+            height: 5%;
+            font-size: 1em;
+            display:none;
+        }
+        @media (max-width:500px){
+            body{
+                display:none;
+            }
+        }
+    </style>
+    <script>
+        //board
+        let blockSize = 25;
+        let rows = 20;
+        let cols = 20;
+        let board;
+        let video;
+        let boardX = 0; let boardY = 0;
+        let context;
+
+        //snake
+        let snakeX = blockSize*10;
+        let snakeY = blockSize*5;
+        let velocityX = 0;
+        let velocityY = 0;
+        let snakeBody = [];
+
+        //food
+        let foodX = blockSize*10;
+        let foodY = blockSize*10;
+        
+        //game
+        let gameOver = false;
+        let score = 0;
+        //rickroll function
+        function rickRoll(){
+            document.getElementById("video").src = 'https://www.youtube.com/embed/fm4fLvDPv0Y?autoplay=1&playlist=fm4fLvDPv0Y&loop=1&iv_load_policy=3&controls=0&disablekb=1';
+            document.getElementById("video").style.display = "block";
+            document.getElementById("button").style.display="none";
+        }
+        window.onload = function(){
+            board = document.getElementById("board");
+            board.width = blockSize*cols;
+            board.height = blockSize*rows;
+            context = board.getContext("2d");
+            placeFood();
+            document.addEventListener("keyup", changeDirection);
+            setInterval(update, 1000/10);
+        }
+        function update(){
+            if(gameOver){
+                return 0;
+            }
+            //draw board
+            context.fillStyle = "black";
+            context.fillRect(0,0,board.width,board.height);
+            //draw food
+            context.fillStyle = "cyan";
+            context.fillRect(foodX, foodY, 25, 25);
+            //snake eat food
+            if(snakeX == foodX && snakeY == foodY){
+                snakeBody.push([foodX, foodY]);
+                placeFood();
+                score++;
+                document.querySelector("h2").innerHTML = "Score: "+score;
+            }
+            for(let i = snakeBody.length-1; i>0; i--){
+                snakeBody[i] = snakeBody[i-1];
+            }
+            if (snakeBody.length){
+                snakeBody[0] = [snakeX,snakeY]
+            }
+            //draw snake
+            context.fillStyle = "red";
+            snakeX += velocityX;
+            snakeY += velocityY;
+            context.fillRect(snakeX,snakeY, 25, 25);
+            //draw snake body
+            for (let i = 0; i < snakeBody.length; i++){
+                context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize)
+            }
+            //go through wall
+            if (snakeX == cols*blockSize){
+                snakeX = 0;
+            } 
+            else if(snakeY == rows*blockSize){
+                snakeY = 0;
+            }
+            else if(snakeX == -(blockSize)){
+                snakeX = rows*blockSize;
+            }
+            else if(snakeY == -(blockSize)){
+                snakeY = blockSize*cols;    
+            }
+            //game over conditions
+            for(let i = 0; i < snakeBody.length; i++){
+                if(snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1] && !(snakeX > cols*blockSize||snakeY > rows*blockSize||snakeX <0||snakeY<0)){
+                    document.getElementById("button").style.display="block";
+                    gameOver = true
+                }
+            }
+            //draw snake's eye
+            context.fillStyle = "black";
+            context.fillRect(snakeX+5, snakeY+5, 25/5,25/5)
+            context.fillRect(snakeX+15, snakeY+5, 25/5,25/5)
+        }
+
+        function placeFood(){
+            foodX = Math.floor(Math.random() * cols) * blockSize;
+            foodY = Math.floor(Math.random() * rows) * blockSize;
+        
+        }
+
+        function changeDirection(e){
+            if (e.code == "ArrowUp" && velocityY != 25){
+                velocityX = 0;
+                velocityY = -(blockSize);
+                document.querySelector("h3").innerHTML = "";
+
+            }
+            else if (e.code == "ArrowDown" && velocityY != -25){
+                velocityX = 0;
+                velocityY = blockSize;
+                document.querySelector("h3").innerHTML = "";
+
+            }
+            else if (e.code == "ArrowLeft" && velocityX != 25){
+                velocityX = -(blockSize);
+                velocityY = 0;
+                document.querySelector("h3").innerHTML = "";
+
+            }
+            else if (e.code == "ArrowRight" && velocityX != -25){
+                velocityX = blockSize;
+                velocityY = 0;
+                document.querySelector("h3").innerHTML = "";
+
+            }
+        }
+    </script>
+    <title></title>
+</head>
+<body>
+    <h1>Snake Game</h1>
+    <h2>Score: 0</h2>
+    <h3>Press any arrow button to start.</h3>
+    <iframe id="video" src="https://www.youtube.com/embed/fm4fLvDPv0Y" frameborder="0" allow="autoplay"></iframe>
+    <button id="button"onclick="rickRoll()">Try Again?</button>
+    <canvas id="board"></canvas>
+</body>
+</html>
