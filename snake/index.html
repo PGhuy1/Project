@@ -49,9 +49,17 @@
             box-shadow: 1px 1px 8px 1px #dcdcdc;
             cursor: pointer;
         }
+        span{
+            display: none;
+        }
         @media (max-width:500px){
-            body{
-                display:none;
+            .container{
+                display: none;
+            }
+            span{
+                position:relative;
+                font-size: 7em;
+                display: inline;
             }
         }
     </style>
@@ -188,13 +196,16 @@
     <title></title>
 </head>
 <body>
-    <h1>Snake Game</h1>
-    <h2>Score: 0</h2>
-    <h3>Press any arrow button to start.</h3>
-    <iframe id="video" src="https://www.youtube.com/embed/fm4fLvDPv0Y" frameborder="0" allow="autoplay"></iframe>
-    <div class="button">
-        <button id="button"onclick="rickRoll()">Try Again?</button>
+    <div class="container">
+        <h1>Snake Game</h1>
+        <h2>Score: 0</h2>
+        <h3>Press any arrow button to start.</h3>
+        <iframe id="video" src="https://www.youtube.com/embed/fm4fLvDPv0Y" frameborder="0" allow="autoplay"></iframe>
+        <div class="button">
+            <button id="button"onclick="rickRoll()">Try Again?</button>
+        </div>
+        <canvas id="board"></canvas>
     </div>
-    <canvas id="board"></canvas>
+    <span>Phone is not allowed</span>
 </body>
 </html>
