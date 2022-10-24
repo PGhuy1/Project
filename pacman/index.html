@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style></style>
+    <script>
+        const canvas = document.querySelector("canvas");
+        const context = canvas.getContext('2d');   
+        
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+
+        class Boundary{
+            constructor({position}){
+                this.position = position;
+                this.width = 40;
+                this.height = 40;
+            }
+
+            draw(){
+                context.fillStyle = "blue";
+                context.fillRect(this.position.x, this.position.y, this.width, this.height)
+            }
+        }
+        const boundary = new Boundary({
+            position:{
+                x:0,
+                y:0
+            }
+        })
+        boundary.draw()
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+</html>
