@@ -17,6 +17,12 @@
         h2{
             font-size: 35px;
         }
+        p{
+            position: relative;
+            font-size: 50px;
+            display: none;
+            color:white;
+        }
         #video{
             position: fixed;
             right: 0;
@@ -76,9 +82,9 @@
         }
         function update(){
             if(gameOver){
-                alert("Game Over")
-                video.play()
-                return 0;
+                video.play(); 
+                document.querySelector("p").style.display = "block"
+                return 0
             }
             //draw board
             context.fillStyle = "black";
@@ -176,9 +182,9 @@
         <h3>Press any arrow button to start.</h3>
         <video id="video" loop>
             <source src="./rickroll.mp4" type="video/mp4">
-            <source src="./rickroll.ogg" type="video/ogg">
         </video>
         <canvas id="board"></canvas>
+        <p>GAME OVER LOLOLOLOLOL</p>
     </div>
     <span>Phone is not allowed!</span>
 </body>
