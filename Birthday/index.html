@@ -15,7 +15,7 @@
         body{
             background-color: #fdbf00;
         }
-        .card{
+        #card{
             width: 640px;
             height: 400px;
             position: absolute;
@@ -28,26 +28,27 @@
             perspective: 1200px;
             transition: 1s;
         }
-        .card:hover{
+        #card:hover{
+            cursor: pointer;
             transform: rotate(-5deg);
         }
-        .card:hover .outside{
+        #card:hover #outside{
             transform: rotateY(-130deg)
         }
-        .outside,
-        .inside {
+        #outside,
+        #inside {
             height: 100%;
             width: 50%;
             position: absolute;
             left: 50.1%;
         }
-        .inside{
+        #inside{
             left: 50.1%;
             background: linear-gradient(
                 to right,
                 #e0e0e0, #ffffff 30%
             );
-            line-height: 3px;
+            line-height: 3;
             padding: 0 20px;
             text-align: center;
             display: flex;
@@ -55,15 +56,15 @@
             justify-content: space-around;
             align-items: center;
         }
-        .outside{
+        #outside{
             -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
             z-index: 1;
             transform-origin: left;
             transition: 2s
         }
-        .front, 
-        .back{
+        #front, 
+        #back{
             height: 100%;
             width: 100%;
             position: absolute;
@@ -72,19 +73,19 @@
             transform: rotateX(0deg);
             background-color: #ffffff
         }
-        .front{
+        #front{
             background-color: #ffffff
         }
-        .back{
+        #back{
             transform: rotateY(180deg);
             background-color: linear-gradient(to left, #e0e0e0, #ffffff 30%);
         }
-        .cake{
+        #cake{
             width: 100%;
             position: absolute;
             bottom: 30px;
         }
-        .top-layer, .middle-layer, .bottom-layer{
+        #top-layer, #middle-layer, #bottom-layer{
             height: 80px;
             width: 240px;
             background-repeat: repeat;
@@ -96,15 +97,15 @@
             position: relative;
             margin: auto;
         }
-        .middle-layer{
+        #middle-layer{
             transform: scale(0.85);
             top: 6px;
         }
-        .top-layer{
+        #top-layer{
             transform: scale(0.7);
             top: 26px;
         }
-        .candle{
+        #candle{
             height: 45px;
             width: 15px;
             background:
@@ -115,7 +116,7 @@
             right: 0;
             bottom: 202px;
         }
-        .candle:before{
+        #candle:before{
             content: "";
             position: absolute;
             height: 16px;
@@ -126,38 +127,68 @@
             transform: rotate(45deg);
             left: -1px;
         }
-        .outside p{
+        #outside p{
             font-size: 23px;
             text-transform: uppercase;
             text-align: center;
             letter-spacing: 5px;
             color: #000046;
         }
+        #inside p{
+            font-size: 30px;
+            line-height: 40px;
+        }
     </style>
-    <script>
-        
-    </script>
     <title>Document</title>
 </head>
 <body>
-    <div class="card">
-        <div class="outside">
-            <div class="front">
-                <p>Happy Birthday</p>
+    <div id="card">
+        <div id="outside">
+            <div id="front">
+                <p id="hi">Happy Birthday</p>
                 <br>
                 <p>28/10/2022 💖</p>
-                <div class="cake">
-                    <div class="top-layer"></div>
-                    <div class="middle-layer"></div>
-                    <div class="bottom-layer"></div>
-                    <div class="candle"></div>
+                <div id="cake">
+                    <div id="top-layer"></div>
+                    <div id="middle-layer"></div>
+                    <div id="bottom-layer"></div>
+                    <div id="candle"></div>
                 </div>
             </div>
-            <div class="back"></div>
+            <div id="back"></div>
         </div>
-        <div class="inside">
+        <div id="inside">
             <p id="wish"></p>
         </div>
     </div>
+    <script>
+    window.onload = function(){
+        document.getElementById("card").addEventListener("click", click);
+        var p = document.getElementById('wish');
+        var str = 'I love you';
+        var n = 0;
+        function click() {
+            var typeTimer = setInterval(function() {
+                n = n + 1;
+                p.innerHTML = " " + str.slice(0, n);
+                if (n === str.length) {
+                    clearInterval(typeTimer);
+                    p.innerHTML = " " + str;
+                    n = 0;
+                    setInterval(function() {
+                        if (n === 0) {
+                            p.innerHTML = " " + str + "|"
+                            n = 1;
+                        } else {
+                            p.innerHTML = " " + str
+                            n = 0;
+                        };
+                    }, 500);
+                };
+            }, 60)
+        document.getElementById("card").removeEventListener("click", click)
+        }
+    }
+    </script>
 </body>
 </html>
