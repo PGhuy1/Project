@@ -15,6 +15,10 @@
         body{
             background-color: #fdbf00;
         }
+        #Owner{
+            top: 10%;
+            text-align: center;
+        }
         #card{
             width: 640px;
             height: 400px;
@@ -142,6 +146,7 @@
     <title>???</title>
 </head>
 <body>
+    <p id="Owner"></p>
     <div id="card">
         <div id="outside">
             <div id="front">
@@ -194,6 +199,7 @@
         document.getElementById("card").removeEventListener("click", click);
         audio.play();
         setTimeout(addAuthor, 8500);
+        setTimeout(addOwner, 12000)
         }
         function addAuthor(){
             var p = document.getElementById('tacgia');
@@ -217,6 +223,29 @@
                     }, 600);
                 };
             }, 100)
+        }
+        function addOwner(){
+            var p = document.getElementById('Owner');
+            var str = "This is your own website we've made for you!";
+            var n = 0;
+            var typeTimer = setInterval(function() {
+                n = n + 1;
+                p.innerHTML = " " + str.slice(0, n);
+                if (n === str.length) {
+                    clearInterval(typeTimer);
+                    p.innerHTML = " " + str;
+                    n = 0;
+                    setInterval(function() {
+                        if (n === 0) {
+                            p.innerHTML = " " + str
+                            n = 1;
+                        } else {
+                            p.innerHTML = " " + str
+                            n = 0;
+                        };
+                    }, 600);
+                };
+            }, 60)
         }
     }
     </script>
