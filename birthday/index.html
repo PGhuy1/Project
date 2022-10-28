@@ -185,19 +185,12 @@
                     clearInterval(typeTimer);
                     p.innerHTML = " " + str;
                     n = 0;
-                    setInterval(function() {
-                        if (n === 0) {
-                            p.innerHTML = " " + str
-                            n = 1;
-                        } else {
-                            p.innerHTML = " " + str
-                            n = 0;
-                        };
-                    }, 100);
                 };
             }, 150)
         document.getElementById("card").removeEventListener("click", click);
+        document.getElementById("card").style.cursor = "default";
         audio.play();
+        
         setTimeout(addAuthor, 8500);
         setTimeout(addOwner, 12000)
         }
@@ -235,15 +228,6 @@
                     clearInterval(typeTimer);
                     p.innerHTML = " " + str;
                     n = 0;
-                    setInterval(function() {
-                        if (n === 0) {
-                            p.innerHTML = " " + str
-                            n = 1;
-                        } else {
-                            p.innerHTML = " " + str
-                            n = 0;
-                        };
-                    }, 600);
                 };
             }, 60)
         }
