@@ -75,8 +75,8 @@
         let gameOver = false;
         let score = 0;
         window.onload = function(){
+            audio = document.getElementById("audio");
             video = document.getElementById("video");
-            video.pause();
             board = document.getElementById("board");
             board.width = blockSize*cols;
             board.height = blockSize*rows;
@@ -100,6 +100,7 @@
             //snake eat food
             if(snakeX == foodX && snakeY == foodY){
                 snakeBody.push([foodX, foodY]);
+                audio.play()
                 placeFood();
                 score++;
                 document.querySelector("h2").innerHTML = "Score: "+score;
@@ -188,6 +189,9 @@
         <video id="video" loop>
             <source src="./rickroll.mp4" type="video/mp4">
         </video>
+        <audio id="audio">
+            <source src="./eat.mp3" type="audio/mpeg">
+        </audio>
         <canvas id="board"></canvas>
         <p>GAME OVER LOLOLOLOLOL</p>
     </div>
