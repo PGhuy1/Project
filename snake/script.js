@@ -26,6 +26,12 @@ let foodY = 0;
 let gameOver = false;
 let score = 0;
 
+function random(min,max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 window.addEventListener('load', function(){
     snakepos = document.getElementById("snake-position")
     foodpos = document.getElementById("food-position")
@@ -40,28 +46,38 @@ window.addEventListener('load', function(){
     setInterval(update, 1000/10);
 })
 
-function drawGrid(){
+function drawBoard(){
+    context.beginPath()
+    //grid board
+    let n = 0.5
     for(let x = boardY; x<cols*blockSize; x+=blockSize*2){
         for(let i = boardX; i<rows*blockSize; i+=blockSize*2){
             context.fillStyle = "rgb(38,53,69)";
-            context.fillRect(i,x,blockSize+1,blockSize+1);
+            context.fillRect(i,x,blockSize+n,blockSize+n);
         }
         for(let j = boardX+blockSize; j<rows*blockSize; j+=blockSize*2){
             context.fillStyle = "rgb(31,41,55)";
-            context.fillRect(j,x,blockSize+1,blockSize+1);
+            context.fillRect(j,x,blockSize+n,blockSize+n);
         }
     }
     for(let x = boardY+blockSize; x<cols*blockSize; x+=blockSize*2){
         for(let i = boardX+blockSize; i<rows*blockSize; i+=blockSize*2){
             context.fillStyle = "rgb(38,53,69)";
-            context.fillRect(i,x,blockSize+1,blockSize+1);
+            context.fillRect(i,x,blockSize+n,blockSize+n);
         }
         for(let j = boardX; j<rows*blockSize; j+=blockSize*2){
             context.fillStyle = "rgb(31,41,55)";
-            context.fillRect(j,x,blockSize+1,blockSize+1);
+            context.fillRect(j,x,blockSize+n,blockSize+n);
         }
     }
+    //outline
+    context.lineWidth = 2;
+    context.strokeStyle = "white";
+    context.rect(0,0,board.width,board.height)
+    context.stroke()
 }
+
+
 function update(){
     snakepos.innerHTML="Snake-pos: "+snakeX+", "+snakeY
     foodpos.innerHTML= "Food-pos: "+foodX+", "+foodY
@@ -72,17 +88,16 @@ function update(){
     }
     
     //draw board
-    context.beginPath()
-    context.lineWidth = "2"
-    context.fillStyle = "white";
-    context.fillRect(0,0,board.width,board.height)
-    drawGrid()
-    
+    drawBoard()
+
     //draw food
+    context.beginPath()
+    context.strokeStyle = "rgb(225,67,52)";
+    context.arc(foodX-blockSize/2, foodY-blockSize/2, blockSize/2.2, 0,2*Math.PI);
     context.fillStyle = "rgb(225,67,52)";
-    context.arc(foodX-blockSize/2, foodY-blockSize/2, blockSize/2, 0,2*Math.PI);
     context.fill()
-    
+    context.stroke()
+
     //snake eat food
     if(snakeX+blockSize == foodX && snakeY+blockSize == foodY){
         snakeBody.push([foodX, foodY]);
@@ -99,16 +114,20 @@ function update(){
     }
     
     //draw snake
+    context.beginPath()
     context.fillStyle = "rgb(46,141,212)";
     snakeX += velocityX;
     snakeY += velocityY;
     context.fillRect(snakeX,snakeY, blockSize+0.5, blockSize+0.5);
-    
+    context.stroke()
+
     //draw snake body
+    context.beginPath()
     for (let i = 0; i < snakeBody.length; i++){
         context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize+0.5, blockSize+0.5)
     }  
-    
+    context.stroke()
+
     //go through walls
     if(snakeX<2.5){
         snakeX = blockSize*rows+2.5
@@ -131,18 +150,15 @@ function update(){
         }
     }
     
-    //draw snake's eye
+    //draw snake's face
+    context.beginPath()
     context.fillStyle = "black";
-    context.fillRect(snakeX+5, snakeY+5, 25/5,25/5)
-    context.fillRect(snakeX+15, snakeY+5, 25/5,25/5)
+    context.fillRect(snakeX+5, snakeY+5, blockSize/5,blockSize/5)
+    context.fillRect(snakeX+15, snakeY+5, blockSize/5,blockSize/5)
+    context.stroke()
 }
 
-function random(min,max){
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
+//placefood
 function placeFood(){
     foodX = (random(1, rows-1)*blockSize)+boardX
     foodY = (random(1, cols-1)*blockSize)+boardY
