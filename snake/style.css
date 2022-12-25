@@ -1,0 +1,44 @@
+body{
+    color: white;
+    background-color: rgb(38,53,69);
+    font-family: "Nunito", sans-serif;
+    text-align: center;
+    margin-top: 20px;
+
+}
+h1{
+    font-size: 35px;
+}
+
+p{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    display: none;
+    font-size: 3em;
+    color: white;
+}
+#video{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    display: none;
+}
+span{
+    display: none;
+}
+@media (max-width:500px){
+    .container{
+        display: none;
+    }
+    span{
+        position:relative;
+        font-size: 7em;
+        display: inline;
+    }
+}
