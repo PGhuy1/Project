@@ -9,9 +9,8 @@
     text-transform: capitalize;
     transition: .2s linear;
 }
-
 .container{
-    background:linear-gradient(45deg, black, white);
+    background:linear-gradient(45deg, pink,violet,pink);
     padding:15px 9%;
     padding-bottom: 33%;
 }
