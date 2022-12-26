@@ -191,15 +191,6 @@ function touchMove(e){
     moveY = e.touches[0].clientY ;
 }
 function touchEnd(){
-    if(startX+100 < moveX){
-        velocityX = blockSize;
-        velocityY = 0;
-        document.querySelector("h3").innerHTML = "⠀";
-    } else if(startX-100 > moveX){
-        velocityX = -(blockSize);
-        velocityY = 0;
-        document.querySelector("h3").innerHTML = "⠀";
-    }
     if(startY+100 < moveY){
         velocityX = 0;
         velocityY = blockSize;
@@ -210,20 +201,28 @@ function touchEnd(){
         velocityY = -(blockSize);
         document.querySelector("h3").innerHTML = "⠀";
     }
+    if(startX+100 < moveX){
+        velocityX = blockSize;
+        velocityY = 0;
+        document.querySelector("h3").innerHTML = "⠀";
+    } else if(startX-100 > moveX){
+        velocityX = -(blockSize);
+        velocityY = 0;
+        document.querySelector("h3").innerHTML = "⠀";
+    }
 }
-
 function changeDirection(e){
-    if (e.code == "ArrowUp" && velocityY != blockSize){
+    if ((e.code == "ArrowUp" && velocityY != blockSize)){
         velocityX = 0;
         velocityY = -(blockSize);
         document.querySelector("h3").innerHTML = "⠀";
     }
-    else if (e.code == "ArrowDown" && velocityY != -blockSize){
+    else if ((e.code == "ArrowDown" && velocityY != -blockSize)){
         velocityX = 0;
         velocityY = blockSize;
         document.querySelector("h3").innerHTML = "⠀";
     }
-    else if (e.code == "ArrowLeft" && velocityX != blockSize){
+    else if ((e.code == "ArrowLeft" && velocityX != blockSize)||(startX-100 > moveX)){
         velocityX = -(blockSize);
         velocityY = 0;
         document.querySelector("h3").innerHTML = "⠀";
@@ -233,8 +232,4 @@ function changeDirection(e){
         velocityY = 0;
         document.querySelector("h3").innerHTML = "⠀";
     }
-    /*else if(e.code=="Escape"){
-        velocityX=0;
-        velocityY=0;
-    }*/
 }
