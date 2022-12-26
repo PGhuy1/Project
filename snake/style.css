@@ -6,11 +6,23 @@ body{
     margin-top: 20px;
 
 }
+button{
+    width:2em;
+    height: 3em;
+}
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+.arrow-buttons{
+    display: none;
+}
 h1{
     font-size: 35px;
 }
-
-p{
+#gameover{
     position:absolute;
     top:0;
     left:0;
@@ -32,13 +44,11 @@ p{
 span{
     display: none;
 }
-@media (max-width:500px){
-    .container{
-        display: none;
+@media (max-width:736px),(max-height:720px){
+    h1{
+        font-size:23px;
     }
-    span{
-        position:relative;
-        font-size: 7em;
-        display: inline;
+    h3{
+        font-size:15px;
     }
 }

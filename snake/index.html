@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="style.css">
     <title>Snake</title>
 </head>
-<body>
+<body ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd()">
     <div class="container">
         <h1>Score: 0</h1>
-        <h3>Press any arrow button to start.</h3>
+        <h3>Press any arrow button or swipe the screen to start.</h3>
         <video id="video" loop>
             <source src="media/rickroll.mp4" type="video/mp4">
         </video>
@@ -19,11 +19,9 @@
             <source src="media/eat.mp3" type="audio/mpeg">
         </audio>
         <canvas id="board"></canvas>
-        <p>GAME OVER LOLOLOLOLOL</p>
+        <p id="gameover">GAME OVER LOLOLOLOLOL</p>
     </div>
-    <span>Phone is not allowed!</span>
-    <h2 id="snake-position">Snake: </h1>
-    <h2 id="food-position">Food: </h1>
+    <span>Rotate The Screen</span>
     <script src="script.js"></script>
 </body>
 </html>

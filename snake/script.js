@@ -1,5 +1,5 @@
 //board
-let blockSize = 25;
+let blockSize;
 let rows = 20;
 let cols = 20;
 let board;
@@ -10,6 +10,23 @@ let boardY = 2.5;
 let context;
 let foodpos
 let snakepos;
+var startX, startY, moveX, moveY;
+
+//blocksize
+let screenW = screen.width
+let screenH = screen.height
+if(screenW>=1100 && screenH>=768){
+    blockSize=30;
+}
+else if(screenW>=820 && screenH>=660){
+    blockSize=25;
+}
+else if(screenW>=736 && screenH>=630){
+    blockSize=20;
+}
+else{
+    blockSize=15;
+}
 
 //snake
 let snakeX = (random(1,rows-1)*blockSize)+boardX;
@@ -21,10 +38,12 @@ let snakeBody = [];
 //food
 let foodX = 0;
 let foodY = 0;
-        
+
 //game
+
 let gameOver = false;
 let score = 0;
+
 
 function random(min,max){
     min = Math.ceil(min);
@@ -79,8 +98,6 @@ function drawBoard(){
 
 
 function update(){
-    snakepos.innerHTML="Snake-pos: "+snakeX+", "+snakeY
-    foodpos.innerHTML= "Food-pos: "+foodX+", "+foodY
     if(gameOver){
         video.play(); 
         document.querySelector("p").style.display = "block"
@@ -153,8 +170,8 @@ function update(){
     //draw snake's face
     context.beginPath()
     context.fillStyle = "black";
-    context.fillRect(snakeX+5, snakeY+5, blockSize/5,blockSize/5)
-    context.fillRect(snakeX+15, snakeY+5, blockSize/5,blockSize/5)
+    context.fillRect(snakeX+blockSize/5, snakeY+blockSize/5, blockSize/5,blockSize/5)
+    context.fillRect(snakeX+(blockSize-(blockSize/5*2)), snakeY+blockSize/5, blockSize/5,blockSize/5)
     context.stroke()
 }
 
@@ -164,29 +181,60 @@ function placeFood(){
     foodY = (random(1, cols-1)*blockSize)+boardY
 }
 
-function changeDirection(e){
-    if (e.code == "ArrowUp" && velocityY != 25){
-        velocityX = 0;
-        velocityY = -(blockSize);
+//direction
+function touchStart(e){
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY
+}
+function touchMove(e){
+    moveX = e.touches[0].clientX ;
+    moveY = e.touches[0].clientY ;
+}
+function touchEnd(){
+    if(startX+100 < moveX){
+        velocityX = blockSize;
+        velocityY = 0;
         document.querySelector("h3").innerHTML = "⠀";
-    }
-    else if (e.code == "ArrowDown" && velocityY != -25){
-        velocityX = 0;
-        velocityY = blockSize;
-        document.querySelector("h3").innerHTML = "⠀";
-    }
-    else if (e.code == "ArrowLeft" && velocityX != 25){
+    } else if(startX-100 > moveX){
         velocityX = -(blockSize);
         velocityY = 0;
         document.querySelector("h3").innerHTML = "⠀";
     }
-    else if (e.code == "ArrowRight" && velocityX != -25){
+    if(startY+100 < moveY){
+        velocityX = 0;
+        velocityY = blockSize;
+        document.querySelector("h3").innerHTML = "⠀";
+    } 
+    else if(startY-100 > moveY){
+        velocityX = 0;
+        velocityY = -(blockSize);
+        document.querySelector("h3").innerHTML = "⠀";
+    }
+}
+
+function changeDirection(e){
+    if (e.code == "ArrowUp" && velocityY != blockSize){
+        velocityX = 0;
+        velocityY = -(blockSize);
+        document.querySelector("h3").innerHTML = "⠀";
+    }
+    else if (e.code == "ArrowDown" && velocityY != -blockSize){
+        velocityX = 0;
+        velocityY = blockSize;
+        document.querySelector("h3").innerHTML = "⠀";
+    }
+    else if (e.code == "ArrowLeft" && velocityX != blockSize){
+        velocityX = -(blockSize);
+        velocityY = 0;
+        document.querySelector("h3").innerHTML = "⠀";
+    }
+    else if (e.code == "ArrowRight" && velocityX != -blockSize){
         velocityX = blockSize;
         velocityY = 0;
         document.querySelector("h3").innerHTML = "⠀";
     }
-    else if(e.code=="Escape"){
+    /*else if(e.code=="Escape"){
         velocityX=0;
         velocityY=0;
-    }
+    }*/
 }
