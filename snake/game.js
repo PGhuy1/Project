@@ -25,7 +25,7 @@ else if(screenW>=736 && screenH>=630){
     blockSize=20;
 }
 else{
-    blockSize=15;
+    blockSize=18;
 }
 
 //snake
@@ -121,7 +121,7 @@ function update(){
         audio.play()
         placeFood();
         score++;
-        document.querySelector("h1").innerHTML = "Score: "+score;
+        document.querySelector("h1").innerHTML = "Score: "+score+"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Best Score: 0";
     }
     for(let i = snakeBody.length-1; i>0; i--){
         snakeBody[i] = snakeBody[i-1];
@@ -191,21 +191,21 @@ function touchMove(e){
     moveY = e.touches[0].clientY ;
 }
 function touchEnd(){
-    if(startY+100 < moveY){
+    if(startY+100 < moveY && velocityY != -blockSize){
         velocityX = 0;
         velocityY = blockSize;
         document.querySelector("h3").innerHTML = "⠀";
     } 
-    else if(startY-100 > moveY){
+    else if(startY-100 > moveY && velocityY != blockSize){
         velocityX = 0;
         velocityY = -(blockSize);
         document.querySelector("h3").innerHTML = "⠀";
     }
-    if(startX+100 < moveX){
+    if((startX+100 < moveX) && (velocityX != -blockSize)){
         velocityX = blockSize;
         velocityY = 0;
         document.querySelector("h3").innerHTML = "⠀";
-    } else if(startX-100 > moveX){
+    } else if((startX-100 > moveX) && (velocityX != blockSize)){
         velocityX = -(blockSize);
         velocityY = 0;
         document.querySelector("h3").innerHTML = "⠀";
@@ -222,7 +222,7 @@ function changeDirection(e){
         velocityY = blockSize;
         document.querySelector("h3").innerHTML = "⠀";
     }
-    else if ((e.code == "ArrowLeft" && velocityX != blockSize)||(startX-100 > moveX)){
+    else if ((e.code == "ArrowLeft" && velocityX != blockSize)){
         velocityX = -(blockSize);
         velocityY = 0;
         document.querySelector("h3").innerHTML = "⠀";

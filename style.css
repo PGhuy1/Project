@@ -11,7 +11,7 @@
 .container{
     background:linear-gradient(45deg, pink,violet,pink);
     padding:15px 9%;
-    padding-bottom: 33%;
+    padding-bottom:100%;
 }
 
 .container .heading{
@@ -69,10 +69,4 @@
 .container .box-container .box:hover{
     box-shadow: 0 10px 15px rgba(0,0,0,.3);
     transform: scale(1.03);
-}
-
-@media (max-width:768px){
-    .container{
-        padding:20px;
-    }
 }
